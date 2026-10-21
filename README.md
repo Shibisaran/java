@@ -1,22 +1,30 @@
-# Java Programming with Maven
+# Java Application with Maven and Jenkins CI Pipeline
 
-A simple Java application built using **Java 21 and Apache Maven**, demonstrating Java application development, dependency management, unit testing, and project packaging.
+A simple Java application built using **Java 21 and Apache Maven**, with unit testing using JUnit 5 and Continuous Integration (CI) integration using Jenkins.
 
-## 📌 Project Overview
+## Project Overview
 
-This project contains a basic Java application that generates personalized greetings. It uses a modular structure with separate classes for application execution and greeting logic.
+This project demonstrates Java application development, dependency management, unit testing, and automated build integration using Jenkins. The source code is maintained in GitHub, while Jenkins is configured to clone the repository and execute Maven build and testing commands.
 
-The project also includes unit tests using **JUnit 5** to verify the application's behavior.
+## Technologies Used
 
-## 🛠️ Technologies Used
+- **Programming Language:** Java 21
+- **Build Tool:** Apache Maven
+- **Testing Framework:** JUnit 5
+- **CI Tool:** Jenkins
+- **Version Control:** Git and GitHub
 
-- **Java 21** – Programming language
-- **Apache Maven** – Build and dependency management
-- **JUnit 5** – Unit testing framework
-- **Maven Surefire Plugin** – Automated test execution
-- **Git & GitHub** – Version control and source code management
+## Features
 
-## 📂 Project Structure
+- Simple Java greeting application.
+- Handles user-provided names through command-line arguments.
+- Provides a default greeting for blank or null input.
+- Unit tests for greeting functionality.
+- Maven-based compilation, testing, and packaging.
+- Jenkins integration for automated build and test execution.
+- GitHub integration for source code management.
+
+## Project Structure
 
 ```text
 java/
@@ -26,140 +34,191 @@ java/
     └── src/
         ├── main/
         │   └── java/
-        │       └── com/example/app/
-        │           ├── App.java
-        │           └── Greeter.java
+        │       └── com/
+        │           └── example/
+        │               └── app/
+        │                   ├── App.java
+        │                   └── Greeter.java
         └── test/
             └── java/
-                └── com/example/app/
-                    └── GreeterTest.java
+                └── com/
+                    └── example/
+                        └── app/
+                            └── GreeterTest.java
 ```
 
-## ✨ Features
+## Application Details
 
-- Generates personalized greeting messages.
-- Accepts a name as a command-line argument.
-- Uses a default greeting when the name is missing, blank, or null.
-- Removes unnecessary whitespace from names.
-- Includes automated unit tests using JUnit 5.
-- Supports building and packaging the application with Maven.
+The application accepts a name as a command-line argument and displays a greeting. If no name is supplied, it uses `Java` as the default value.
 
-## ⚙️ Prerequisites
-
-Install the following tools before running the project:
-
-- Java Development Kit (JDK) 21
-- Apache Maven 3.9 or a compatible version
-
-Verify your installation:
-
-```bash
-java -version
-javac -version
-mvn -version
-```
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Shibisaran/java.git
-cd java
-```
-
-### 2. Navigate to the Maven project
-
-```bash
-cd java-JDK
-```
-
-### 3. Build the project
-
-```bash
-mvn clean package
-```
-
-This command compiles the source code, runs the unit tests, and packages the application into a JAR file.
-
-### 4. Run the application
-
-Run the application with a name:
-
-```bash
-mvn exec:java -Dexec.args="Shibi"
-```
-
-**Expected output:**
-
-```text
-Hello, Shibi!
-```
-
-Run without a name:
-
-```bash
-mvn exec:java
-```
-
-**Expected output:**
+Example output:
 
 ```text
 Hello, Java!
 ```
 
-### 5. Run unit tests
+You can also supply a custom name:
+
+```text
+Hello, Shibi!
+```
+
+The `Greeter` class handles the greeting logic, while `App` is the application's entry point.
+
+## Prerequisites
+
+Install the following tools before running the project:
+
+- Java Development Kit (JDK) 21
+- Apache Maven
+- Git
+- Jenkins (for CI pipeline execution)
+
+Verify your local installations:
+
+```bash
+java -version
+mvn -version
+git --version
+```
+
+## Run the Project Locally
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Shibisaran/java.git
+cd java/java-JDK
+```
+
+### 2. Compile the application
+
+```bash
+mvn clean compile
+```
+
+### 3. Run unit tests
 
 ```bash
 mvn test
 ```
 
-The tests verify personalized greetings, whitespace handling, and fallback behavior for blank or null names.
+### 4. Package the application
 
-## 🧪 Testing
-
-The project uses JUnit 5 for automated testing.
-
-Current test scenarios include:
-
-- Greeting a user by name.
-- Trimming leading and trailing whitespace.
-- Returning a default greeting for blank or null input.
-
-Test reports are generated under:
-
-```text
-target/surefire-reports/
+```bash
+mvn clean package
 ```
 
-## 📦 Build Output
+### 5. Run the application
 
-After a successful build, Maven generates the packaged JAR file at:
-
-```text
-target/hello-java-1.0.0-SNAPSHOT.jar
+```bash
+java -cp target/classes com.example.app.App
 ```
 
-The project configures `com.example.app.App` as the JAR's main class.
+To pass a custom name:
 
-## 🎯 Learning Objectives
+```bash
+java -cp target/classes com.example.app.App Shibi
+```
 
-This project provides hands-on practice with:
+## Unit Testing
 
-- Java application structure and classes.
-- Methods and conditional logic.
-- Command-line arguments.
-- Maven project configuration and build lifecycle.
-- Writing and executing unit tests.
-- Packaging Java applications into JAR files.
+The project uses JUnit 5 to validate the greeting functionality.
 
-## 👨‍💻 Author
+The test cases cover:
 
-**Shibisaran M**
+- Greeting a user with a specified name.
+- Removing leading and trailing whitespace from a name.
+- Returning the default greeting for blank input.
+- Returning the default greeting for null input.
 
-- GitHub: [Shibisaran](https://github.com/Shibisaran)
-- LinkedIn: [Connect with me](https://www.linkedin.com/in/shibisaran-m-035492213/)
+Run all tests using:
 
----
+```bash
+mvn test
+```
 
-⭐ If you find this repository useful, feel free to star it!
+## Jenkins CI Pipeline Integration
+
+Jenkins is configured to integrate with this GitHub-hosted Java project and automate the Maven build and testing process.
+
+### Jenkins Configuration
+
+The following setup has been completed:
+
+- **Java Path Setup:** Configured the Java installation and environment path.
+- **Maven Tool Installation:** Installed and configured Maven in Jenkins.
+- **GitHub Repository Cloning:** Configured Jenkins to retrieve the project source code from GitHub.
+- **Build and Test Commands:** Maven commands can be executed through Jenkins to compile the application and run unit tests.
+
+### CI Workflow
+
+```text
+GitHub Repository
+       |
+       v
+Jenkins
+       |
+       v
+Clone Source Code
+       |
+       v
+Configure Java and Maven
+       |
+       v
+Maven Compilation
+       |
+       v
+Run JUnit Tests
+       |
+       v
+Package Application
+       |
+       v
+Build Result
+```
+
+Since the Maven project is located inside `java-JDK/`, Jenkins must execute Maven commands from that directory or use the correct `pom.xml` path.
+
+Example Maven commands for Jenkins:
+
+```bash
+cd java-JDK
+mvn clean compile
+mvn test
+mvn package
+```
+
+These commands can be adapted to the build steps or pipeline stages configured in Jenkins.
+
+## Build Output
+
+After a successful Maven package operation, the generated JAR file is available under:
+
+```text
+java-JDK/target/hello-java-1.0.0-SNAPSHOT.jar
+```
+
+The `target/` directory contains generated build files and should generally not be committed to Git.
+
+## Learning Objectives
+
+This project provides practical experience with:
+
+- Java application development.
+- Maven project structure and dependency management.
+- JUnit unit testing.
+- Git and GitHub source code management.
+- JDK and Maven configuration in Jenkins.
+- CI fundamentals and automated build validation.
+
+## Repository
+
+GitHub: https://github.com/Shibisaran/java
+
+## Author
+
+**Shibi Saran M**
+
+- GitHub: https://github.com/Shibisaran
+- LinkedIn: https://www.linkedin.com/in/shibisaran-m-035492213/
